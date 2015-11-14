@@ -6,8 +6,6 @@
 
 ;(function ( $, window, document, undefined ) {
 
-
-
 	// On window scroll check if there are any new ads
 	// to load.
 	var lazyLoad = function() {
@@ -46,7 +44,8 @@
     			"dfpID": dfw.networkCode,
     			"collapseEmptyDivs": false,
     			"sizeMapping": dfw.mappings,
-    			"setTargeting": dfw.targeting
+    			"setTargeting": dfw.targeting,
+                "afterEachAdLoaded": DFW.afterEachAdLoaded()
     		}).addClass('dfw-loaded');
     	}
 
@@ -62,11 +61,27 @@
 		}, 3000);
 		
 	});
-    
-
-    function callBack() {
-    	alert('hi');
-    }
-
 
 })(jQuery, window, document );
+
+;DFW = {
+    
+    /**
+     * Called after each ad unit has loaded.
+     */
+    afterEachAdLoaded: function(adUnit) {
+        if(adUnit) {
+            adUnit.trigger("dfw:afterAdLoaded");
+        }
+    },
+
+    /**
+     * Called directly before each ad unit has loaded.
+     */
+    beforeEachAdLoaded: function(adUnit) {
+        if(adUnit) {
+            adUnit.trigger("dfw:beforeAdLoaded");
+        }
+    }
+    
+}

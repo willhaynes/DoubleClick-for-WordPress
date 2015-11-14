@@ -182,8 +182,11 @@ class DoubleClick {
         	// echo "\t\trefreshExisting: false,\n";
         	echo "\t\tcollapseEmptyDivs:false,\n";
         	echo "\t\tsetTargeting: " . json_encode($this->targeting()) . ",\n";
-        	echo "\t\tsizeMapping: " . json_encode($mappings);
+        	echo "\t\tsizeMapping: " . json_encode($mappings) . ",\n";
+        	echo "\t\tafterEachAdLoaded: DFW.afterEachAdLoaded" . ",\n";
+        	echo "\t\tbeforeEachAdLoaded: DFW.beforeEachAdLoaded" . ",\n";
         echo "\t});\n";
+
 		
 		echo "\n</script>\n";
 
