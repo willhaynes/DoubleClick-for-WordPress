@@ -94,7 +94,7 @@ class DoubleClick {
 		// Script enqueue is static because we only ever want to print it once.
 		if(!$this::$enqueued) {
 			add_action('wp_footer', array($this, 'enqueue_scripts'));
-			$this->enqueued = true;
+			$this::$enqueued = true;
 		}
 
 		add_action('wp_print_footer_scripts', array($this, 'footer_script'));
@@ -181,8 +181,8 @@ class DoubleClick {
         	echo "\t\tdfpID: '". $this->networkCode() ."',\n";
         	// echo "\t\trefreshExisting: false,\n";
         	echo "\t\tcollapseEmptyDivs:false,\n";
-        	echo "\t\tsetTargeting: " . json_encode($this->targeting()) . ",\n";
-        	echo "\t\tsizeMapping: " . json_encode($mappings) . ",\n";
+        	echo "\t\tsetTargeting: dfw.targeting,\n";
+        	echo "\t\tsizeMapping: dfw.mappings,\n";
         	echo "\t\tafterEachAdLoaded: DFW.afterEachAdLoaded" . ",\n";
         	echo "\t\tbeforeEachAdLoaded: DFW.beforeEachAdLoaded" . ",\n";
         echo "\t});\n";
@@ -268,9 +268,7 @@ class DoubleClick {
 	 * @param $return Boolean. If this is true it will return a string instead.
 	 */
 	public function place_ad($identifier,$sizes,$args = null) {
-		
 		echo $this->get_ad_placement($identifier,$sizes,$args);
-
 	}
 
 	public function get_ad_placement($identifier,$sizes,$args = null) {
@@ -394,8 +392,6 @@ class DoubleClickAdSlot {
 			
 			$breakpoint = $DoubleClick->breakpoints[$breakpointIdentifier];
 
-			//print_r($breakpoint);
-
 			// The minimum browser width/height for this sizemapping.
 			$browserHeight = 1;
 			$browserWidth = $breakpoint->minWidth;
@@ -410,7 +406,7 @@ class DoubleClickAdSlot {
 					$h = (int)$arr[1];
 					$sizeArray[] = array($w,$h);
 				else :
-					// $sizeArray[] = array();
+					$sizeArray[] = array(1,1);
 				endif;
 			}
 
@@ -475,27 +471,6 @@ class DoubleClickBreakpoint {
 
 		$this->identifier = $identifier;
 
-	}
-
-	/**
-	 * Prints a javascript boolean statement for this breakpoint
-	 * 
-	 */
-	public function js_logic() {
-
-		echo $this->get_js_logic();
-	
-	}
-
-	/**
-	 * Returns a string with the boolean logic for the breakpoint.
-	 * 
-	 * @return String boolean logic for breakpoint.
-	 */
-	public function get_js_logic() {
-		
-		return "($this->minWidth <= document.documentElement.clientWidth && document.documentElement.clientWidth < $this->maxWidth)";
-	
 	}
 
 }
