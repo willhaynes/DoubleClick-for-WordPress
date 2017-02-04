@@ -64,23 +64,24 @@
 
 })(jQuery, window, document );
 
-;DFW = {
+DFW = {
     
     /**
      * Called after each ad unit has loaded.
      */
-    afterEachAdLoaded: function(adUnit) {
+    afterEachAdLoaded: function(adUnit,gptEvent) {
         if(adUnit) {
-            adUnit.trigger("dfw:afterAdLoaded");
+            console.log(adUnit);
+            adUnit.trigger("dfw:afterAdLoaded",[gptEvent]);
         }
     },
 
     /**
      * Called directly before each ad unit has loaded.
      */
-    beforeEachAdLoaded: function(adUnit) {
+    beforeEachAdLoaded: function(adUnit,gptEvent) {
         if(adUnit) {
-            adUnit.trigger("dfw:beforeAdLoaded");
+            adUnit.trigger("dfw:beforeAdLoaded", [gptEvent]);
         }
     }
     
