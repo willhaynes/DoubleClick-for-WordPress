@@ -1,8 +1,5 @@
-// 
 // A few lines of javascript to help the DoubleClick for WordPress plugin.
 // Extends jquery.dfw.min.js with some event listeners specific to us.
-//
-// 
 
 ;(function ( $, window, document, undefined ) {
 
@@ -71,7 +68,6 @@ DFW = {
      */
     afterEachAdLoaded: function(adUnit,gptEvent) {
         if(adUnit) {
-            console.log(adUnit);
             adUnit.trigger("dfw:afterAdLoaded",[gptEvent]);
         }
     },
