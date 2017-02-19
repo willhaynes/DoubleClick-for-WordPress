@@ -180,7 +180,7 @@ class DoubleClick {
 		echo "\tjQuery('.dfw-unit:not(.dfw-lazy-load)').dfp({ \n";
         	echo "\t\tdfpID: '". $this->networkCode() ."',\n";
         	// echo "\t\trefreshExisting: false,\n";
-        	echo "\t\tcollapseEmptyDivs:false,\n";
+        	echo "\t\tcollapseEmptyDivs:true,\n";
         	echo "\t\tsetTargeting: dfw.targeting,\n";
         	echo "\t\tsizeMapping: dfw.mappings,\n";
         	echo "\t\tafterEachAdLoaded: DFW.afterEachAdLoaded" . ",\n";
